@@ -57,10 +57,10 @@ camera.position.set(0, .1, 3.5);
 // scene.add(sphere);
 
 const objLoader = new THREE.OBJLoader();
-objLoader.setPath('./blender-files/');
+objLoader.setPath('./public/blender-files/');
 
 const mtlLoader = new THREE.MTLLoader();
-mtlLoader.setPath('./blender-files/');
+mtlLoader.setPath('./public/blender-files/');
 
 var stol;
 new Promise(resolve => {
