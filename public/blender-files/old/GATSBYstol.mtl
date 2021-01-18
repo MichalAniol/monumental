@@ -1,7 +1,7 @@
 # Blender MTL File: 'GATSBY stol.blend'
 # Material Count: 2
 
-newmtl BETON.001
+newmtl BETON
 Ns 0.000000
 Ka 0.068182 0.068182 0.068182
 Kd 0.498039 0.498039 0.498039
@@ -12,7 +12,7 @@ d 1.000000
 illum 3
 map_Kd GRAFIT.jpg
 
-newmtl ZLOTO.001
+newmtl ZLOTO
 Ns 900.000000
 Ka 0.492424 0.492424 0.492424
 Kd 0.862745 0.654902 0.290196

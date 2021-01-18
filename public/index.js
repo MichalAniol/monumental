@@ -6,11 +6,21 @@ const renderer = new THREE.WebGLRenderer({
 });
 let size = Math.min(window.innerHeight, window.innerWidth);
 
+let mesh, controls;
+let guiExposure = null;
+
+
+
 renderer.setSize(size, size * .65);
+// renderer.setPixelRatio(.2);
+// renderer.setPixelRatio(window.devicePixelRatio);
 renderer.shadowMap.enabled = true;
 renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 // renderer.shadowMap.type = THREE.VSMShadowMap;
+renderer.gammaInput = true;
+// renderer.gammaOutput = true;
 document.body.appendChild(renderer.domElement);
+
 
 const setLight = name => {
     name.castShadow = true;
@@ -33,7 +43,7 @@ scene.add(light);
 // setLight(light2);
 // scene.add(light2);
 
-const light3 = new THREE.AmbientLight('#ffffff', .4); // soft white light
+const light3 = new THREE.AmbientLight('#ffffff', .3); // soft white light
 light3.castShadow = false;
 light3.receiveShadow = false;
 scene.add(light3);
@@ -58,9 +68,11 @@ camera.position.set(0, .1, 3.5);
 
 const objLoader = new THREE.OBJLoader();
 objLoader.setPath('./public/blender-files/');
+// objLoader.setPath('./public/blender-files/');
 
 const mtlLoader = new THREE.MTLLoader();
 mtlLoader.setPath('./public/blender-files/');
+// mtlLoader.setPath('./public/blender-files/');
 
 var stol;
 new Promise(resolve => {
@@ -79,17 +91,44 @@ new Promise(resolve => {
             stol.rotation.y = 1;
             stol.position.y = .2;
             stol.traverse(child => {
+                console.log('%c child:', 'background: #ffcc00; color: #003300', child)
                 child.receiveShadow = true;
                 child.castShadow = true;
+                if (child.name == '0.001_Mesh.001') {
+                    child.material = new THREE.MeshStandardMaterial({ color: '#888b3a', roughness: 1 });
+
+                    var envMap = new THREE.TextureLoader().load('./public/blender-files/rect815.png');
+                    envMap.mapping = THREE.SphericalReflectionMapping;
+                    child.material.envMap = envMap;
+
+                    var roughnessMap = new THREE.TextureLoader().load('./public/blender-files/noiseTexture.png');
+                    roughnessMap.magFilter = THREE.NearestFilter;
+                    child.material.roughnessMap = roughnessMap;
+                }
             })
         })
     })
 
+// const gltfLoader = new THREE.GLTFLoader()
+// .setPath('./blender-files/');
+
+// new Promise(resolve => {
+//     resolve(gltfLoader.loadAsync('GATSBYstol.gltf'))
+// })
+// .then(gltf => {
+//     gltf.scene.traverse(child => {
+//         if (child.isMesh) {
+//             stol = child;
+//             scene.add(stol);
+//             child.receiveShadow = true;
+//             child.castShadow = true;
+//         }
+//     });
+// })
 
 let sinX = 0;
 
 function render() {
-
     if (stol) {
         sinX += .005;
         stol.rotation.x = -(Math.sin(sinX) / 3) + .2;
