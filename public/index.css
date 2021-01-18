@@ -1,0 +1,42 @@
+body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+canvas {
+    position: absolute;
+    left: 0;
+    4
+}
+
+.back {
+    position: absolute;
+    left: 0;
+    top: 0;
+    background-color: dimgray;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    padding: 1vw 5vw;
+}
+
+.logo {
+    margin: 1vw;
+    width: 25vw;
+    opacity: .3;
+}
+
+.logo:nth-child(2n+0) {
+    margin-left: 15vw;
+}
+
+.cover {
+    position: absolute;
+    left: 0;
+    top: 0;
+    background-color: #000000cc;
+    width: 100vw;
+    height: 100vh;
+}
