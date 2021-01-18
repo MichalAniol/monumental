@@ -60,18 +60,18 @@ const objLoader = new THREE.OBJLoader();
 objLoader.setPath('./blender-files/');
 
 const mtlLoader = new THREE.MTLLoader();
-mtlLoader.setPath('/blender-files/');
+mtlLoader.setPath('./blender-files/');
 
 var stol;
 new Promise(resolve => {
-        mtlLoader.load('./GATSBYstol.mtl', materials => {
+        mtlLoader.load('GATSBYstol.mtl', materials => {
             resolve(materials);
         })
     })
     .then(materials => {
         materials.preload();
         objLoader.setMaterials(materials);
-        objLoader.load('./GATSBYstol.obj', object => {
+        objLoader.load('GATSBYstol.obj', object => {
             scene.add(object);
             object.receiveShadow = true;
             object.castShadow = true;
